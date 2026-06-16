@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anon Microblog</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div id="app">
+    <div id="toast-container" class="toast-container"></div> <!-- контейнер для всплывающих уведомлений (тостов)-->
+    <button id="scroll-top-btn" class="scroll-top-btn" style="display: none;">⬆️</button>
+    <button id="theme-toggle" class="theme-toggle">🌙</button>
+    <div id="bookmarks-panel" class="bookmarks-panel" style="display:none;">
+        <h3>📌 Закладки</h3>
+        <ul id="bookmarks-list"></ul>
+    </div>
+
+    <div id="auth" class="auth-container">
+        <h2>🔐 Вход / Регистрация</h2>
+        <input id="login" type="text" placeholder="Логин (3-20 символов)">
+        <input id="password" type="password" placeholder="Пароль (мин. 6 символов)">
+        <div class="auth-buttons">
+            <button onclick="register()">📝 Регистрация</button>
+            <button onclick="loginUser()">🚪 Войти</button>
+        </div>
+    </div>
+
+    <div id="main" class="main-container" style="display:none;">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+            <h2>📰 Лента</h2>
+            <button id="logout-btn" class="logout-btn">🚪 Выйти</button>
+        </div>
+        <div class="search-filter">
+            <div class="search-box">
+                <input type="text" id="search-input" placeholder="Поиск по словам...">
+                <button id="search-btn">🔍 Найти</button>
+            </div>
+            <div class="filter-buttons">
+                <button id="filter-all" class="filter-btn active">Все посты</button>
+                <button id="filter-my" class="filter-btn">Мои посты</button>
+            </div>
+        </div>
+        <div class="post-editor">
+            <textarea id="message" placeholder="Напишите пост... (до 500 символов)"></textarea>
+            <div class="char-counter">0/500</div>
+            <button onclick="sendMessage()">✈️ Отправить</button>
+        </div>
+        <div id="posts" class="posts-feed"></div>
+    </div>
+</div>
+
+<!-- Кастомное модальное окно для подтверждения выхода -->
+<div id="logoutModal" class="modal" style="display: none;">
+    <div class="modal-content">
+        <h3>Выход из системы</h3>
+        <p>Вы уверены, что хотите выйти?</p>
+        <div class="modal-buttons">
+            <button id="confirmLogoutBtn" class="btn-danger">Да, выйти</button>
+            <button id="cancelLogoutBtn" class="btn-secondary">Отмена</button>
+        </div>
+    </div>
+</div>
+
+<!-- Модальное окно редактирования поста -->
+<div id="editModal" class="modal" style="display: none;">
+    <div class="modal-content">
+        <h3>Редактировать пост</h3>
+        <textarea id="editPostContent" rows="4" maxlength="500" style="width:100%; margin-bottom:1rem;"></textarea>
+        <div class="char-counter" id="editCharCounter">0/500</div>
+        <div class="modal-buttons">
+            <button id="saveEditBtn" class="btn-primary">Сохранить</button>
+            <button id="cancelEditBtn" class="btn-secondary">Отмена</button>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/dompurify@3.0.6/dist/purify.min.js"></script> <!-- DOMPurify — библиотека для дополнительной очистки HTML (XSS-защита). Загружается из CDN --> 
+<script src="app.js"></script>
+</body>
+</html>
