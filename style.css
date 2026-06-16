@@ -1,0 +1,592 @@
+/* ===== CSS-переменные ===== */
+:root {
+    --bg-body: #f4f7fc;
+    --bg-card: #ffffff;
+    --text-primary: #1e2a3a;
+    --text-secondary: #2c3e50;
+    --border: #dce4ec;
+    --shadow: 0 8px 20px rgba(0,0,0,0.05);
+    --input-bg: #ffffff;
+    --button-bg: #3498db;
+    --button-hover: #2980b9;
+    --button-text: white;
+    --accent: #2c3e50;
+    --post-border-radius: 1rem;
+}
+
+[data-theme="dark"] {
+    --bg-body: #121212;
+    --bg-card: #1e2a2f;
+    --text-primary: #ecf0f1;
+    --text-secondary: #bdc3c7;
+    --border: #2c3e44;
+    --shadow: 0 8px 20px rgba(0,0,0,0.4);
+    --input-bg: #2c3e44;
+    --button-bg: #3a6ea5;
+    --button-hover: #2c5a8c;
+    --button-text: #ecf0f1;
+    --accent: #5dade2;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+body {
+    font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+    background: var(--bg-body);
+    color: var(--text-primary);
+    line-height: 1.5;
+    padding: 1.5rem;
+    min-height: 100vh;
+}
+
+#app {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.theme-toggle {
+    position: fixed;
+    top: 1.2rem;
+    right: 1.5rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    font-size: 1.6rem;
+    cursor: pointer;
+    padding: 0.5rem 0.8rem;
+    border-radius: 3rem;
+    box-shadow: var(--shadow);
+    backdrop-filter: blur(4px);
+    z-index: 100;
+    line-height: 1;
+    transition: 0.2s;
+}
+.theme-toggle:hover {
+    transform: scale(1.05);
+    background: var(--button-bg);
+    color: white;
+}
+
+.auth-container, .main-container {
+    background: var(--bg-card);
+    border-radius: 1.8rem;
+    padding: 2rem;
+    margin-top: 2rem;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border);
+}
+
+h2 {
+    margin-bottom: 1.5rem;
+    font-weight: 600;
+    font-size: 1.8rem;
+    letter-spacing: -0.3px;
+    color: var(--text-primary);
+    border-left: 4px solid var(--button-bg);
+    padding-left: 1rem;
+}
+
+input, textarea {
+    width: 100%;
+    padding: 0.9rem 1rem;
+    margin-bottom: 1rem;
+    border: 1px solid var(--border);
+    border-radius: 1.2rem;
+    background: var(--input-bg);
+    color: var(--text-primary);
+    font-size: 1rem;
+    outline: none;
+    transition: 0.2s;
+}
+input:focus, textarea:focus {
+    border-color: var(--button-bg);
+    box-shadow: 0 0 0 3px rgba(52,152,219,0.2);
+}
+textarea {
+    resize: vertical;
+    min-height: 100px;
+    font-family: inherit;
+}
+
+.comments-section {
+    margin-top: 12px;
+    padding-left: 20px;
+    border-left: 2px solid var(--border);
+}
+.comment {
+    background: var(--bg-body);
+    padding: 8px 12px;
+    border-radius: 12px;
+    margin-top: 8px;
+    font-size: 0.9rem;
+}
+.comment-author {
+    font-weight: bold;
+    color: var(--button-bg);
+    margin-right: 8px;
+}
+.comment-text {
+    color: var(--text-secondary);
+}
+.comment-form {
+    margin-top: 8px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    align-items: center;
+}
+.comment-input {
+    flex: 1;
+    padding: 6px 10px;
+    font-size: 0.85rem;
+}
+.comment-char-counter {
+    font-size: 0.7rem;
+    text-align: right;
+    color: var(--text-secondary);
+}
+
+.like-btn, .dislike-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.1rem;
+    padding: 4px 8px;
+    border-radius: 20px;
+    transition: 0.2s;
+}
+.like-btn:hover { background: #2ecc71; color: white; }
+.dislike-btn:hover { background: #e74c3c; color: white; }
+.comments-toggle {
+    background: none;
+    border: none;
+    color: var(--button-bg);
+    cursor: pointer;
+    font-size: 0.85rem;
+    text-decoration: underline;
+}
+
+.like-btn.active {
+    background-color: #2ecc71;
+    color: white;
+    box-shadow: 0 0 5px #2ecc71;
+}
+.dislike-btn.active {
+    background-color: #e74c3c;
+    color: white;
+    box-shadow: 0 0 5px #e74c3c;
+}
+
+button {
+    background: var(--button-bg);
+    color: var(--button-text);
+    border: none;
+    padding: 0.7rem 1.4rem;
+    border-radius: 2rem;
+    font-size: 0.95rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: 0.2s;
+    margin-right: 0.8rem;
+    margin-bottom: 0.5rem;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+}
+button:hover {
+    background: var(--button-hover);
+    transform: translateY(-2px);
+}
+.auth-buttons {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-top: 0.5rem;
+}
+
+.post-editor {
+    margin-bottom: 2rem;
+}
+.post-editor button {
+    width: auto;
+    padding: 0.7rem 1.8rem;
+    font-size: 1rem;
+}
+.post-editor button:active {
+    transform: scale(0.96);
+    transition: transform 0.05s;
+}
+
+.posts-feed {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+    margin-top: 1rem;
+}
+
+.post {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--post-border-radius);
+    padding: 1.2rem 1.5rem;
+    box-shadow: var(--shadow);
+    transition: transform 0.2s, box-shadow 0.2s;
+    word-wrap: break-word;
+    font-size: 1rem;
+    color: var(--text-secondary);
+    animation: fadeInUp 0.3s ease forwards;
+}
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+.post:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 24px rgba(0,0,0,0.1);
+}
+
+.logout-btn {
+    background: #e74c3c;
+    margin-right: 0;
+}
+.logout-btn:hover {
+    background: #c0392b;
+}
+
+/* Боковая панель закладок */
+.bookmarks-panel {
+    position: fixed;
+    left: 1rem;
+    top: 5rem;
+    width: 220px;
+    background: var(--bg-card);
+    border-radius: 1.2rem;
+    padding: 1rem;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border);
+    z-index: 90;
+    backdrop-filter: blur(8px);
+    max-height: 70vh;
+    overflow-y: auto;
+}
+.bookmarks-panel h3 {
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+    border-left: 3px solid var(--button-bg);
+    padding-left: 0.6rem;
+}
+#bookmarks-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+#bookmarks-list li {
+    padding: 0.5rem 0;
+    border-bottom: 1px solid var(--border);
+    cursor: pointer;
+    font-size: 0.85rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+#bookmarks-list li:hover {
+    color: var(--button-bg);
+    text-decoration: underline;
+}
+
+@media (max-width: 1000px) {
+    .bookmarks-panel {
+        position: static;
+        width: auto;
+        margin-bottom: 1rem;
+        max-height: 200px;
+    }
+    #main {
+        padding-left: 0;
+    }
+}
+
+/* Общие стили для кнопок в футере поста */
+.post-footer {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 12px;
+    flex-wrap: wrap;
+}
+.like-btn, .dislike-btn, .comments-toggle, .bookmark-btn, .link-btn {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 30px;
+    padding: 6px 12px;
+    font-size: 0.9rem;
+    transition: all 0.2s ease;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--text-primary);
+}
+.like-btn:hover { background: #2ecc7120; border-color: #2ecc71; color: var(--text-primary); }
+.dislike-btn:hover { background: #e74c3c20; border-color: #e74c3c; color: var(--text-primary); }
+.comments-toggle:hover { background: var(--button-bg); color: white; border-color: var(--button-bg); }
+.bookmark-btn:hover { background: #f1c40f20; border-color: #f1c40f; color: var(--text-primary); }
+.link-btn:hover { background: #3498db20; border-color: #3498db; color: var(--text-primary); }
+
+.like-btn.active { background: #2ecc71; color: white; border-color: #2ecc71; }
+.dislike-btn.active { background: #e74c3c; color: white; border-color: #e74c3c; }
+.bookmark-btn.active { color: #f1c40f; border-color: #f1c40f; background: #f1c40f20; }
+
+/* Тосты */
+.toast-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.toast {
+    background: var(--bg-card);
+    color: var(--text-primary);
+    padding: 12px 20px;
+    border-radius: 30px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    font-size: 0.9rem;
+    animation: slideInToast 0.3s ease;
+    border-left: 4px solid;
+    max-width: 300px;
+    word-wrap: break-word;
+}
+.toast.success { border-left-color: #2ecc71; }
+.toast.error { border-left-color: #e74c3c; }
+.toast.info { border-left-color: #3498db; }
+@keyframes slideInToast {
+    from { transform: translateX(100%); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}
+.toast.fade-out {
+    animation: fadeOutToast 0.3s ease forwards;
+}
+@keyframes fadeOutToast {
+    to { opacity: 0; transform: translateX(100%); }
+}
+
+/* Кнопка "Наверх" */
+.scroll-top-btn {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    background: var(--button-bg);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    font-size: 1.5rem;
+    cursor: pointer;
+    box-shadow: var(--shadow);
+    transition: 0.2s;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.scroll-top-btn:hover {
+    transform: scale(1.1);
+    background: var(--button-hover);
+}
+
+/* Счётчики символов */
+.char-counter {
+    text-align: right;
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    margin-top: 4px;
+}
+.char-counter.warning {
+    color: #e67e22;
+}
+.char-counter.danger {
+    color: #e74c3c;
+}
+
+/* Панель поиска и фильтрации */
+.search-filter {
+    margin: 1rem 0 1.5rem 0;
+    padding: 0.5rem;
+    background: var(--bg-card);
+    border-radius: 1.5rem;
+    border: 1px solid var(--border);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+}
+.search-box {
+    display: flex;
+    flex: 2;
+    gap: 0.5rem;
+}
+.search-box input {
+    flex: 1;
+    margin-bottom: 0;
+}
+.search-box button {
+    margin: 0;
+    white-space: nowrap;
+}
+.filter-buttons {
+    display: flex;
+    gap: 0.5rem;
+}
+.filter-btn {
+    background: transparent;
+    color: var(--text-secondary);
+    border: 1px solid var(--border);
+    margin: 0;
+    padding: 0.4rem 1.2rem;
+    transition: 0.2s;
+}
+.filter-btn.active {
+    background: var(--button-bg);
+    color: white;
+    border-color: var(--button-bg);
+}
+.filter-btn:hover:not(.active) {
+    background: var(--border);
+    transform: none;
+}
+@media (max-width: 600px) {
+    .search-filter {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .filter-buttons {
+        justify-content: center;
+    }
+}
+/* Кастомное модальное окно */
+.modal {
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+    backdrop-filter: blur(4px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-content {
+    background: var(--bg-card);
+    border-radius: 1.5rem;
+    padding: 2rem;
+    max-width: 400px;
+    width: 90%;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border);
+    animation: modalFadeIn 0.2s ease;
+}
+
+@keyframes modalFadeIn {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+.modal-content h3 {
+    margin-top: 0;
+    margin-bottom: 1rem;
+    color: var(--text-primary);
+}
+
+.modal-content p {
+    margin-bottom: 1.5rem;
+    color: var(--text-secondary);
+}
+
+.modal-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: flex-end;
+}
+
+.btn-danger {
+    background: #e74c3c;
+    color: white;
+}
+.btn-danger:hover {
+    background: #c0392b;
+    transform: translateY(-2px);
+}
+
+.btn-secondary {
+    background: var(--border);
+    color: var(--text-primary);
+}
+.btn-secondary:hover {
+    background: var(--button-hover);
+    color: white;
+    transform: translateY(-2px);
+}
+
+/* Анимация для кнопок лайков и дизлайков */
+.like-btn:active, .dislike-btn:active {
+    transform: scale(1.2);
+    transition: transform 0.1s ease;
+}
+
+.edit-btn {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 30px;
+    padding: 6px 12px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+.edit-btn:hover {
+    background: #f39c12;
+    border-color: #f39c12;
+    color: white;
+}
+.btn-primary {
+    background: #3498db;
+    color: white;
+}
+.btn-primary:hover {
+    background: #2980b9;
+    transform: translateY(-2px);
+}
+
+/* Адаптивность */
+@media (max-width: 600px) {
+    body {
+        padding: 1rem;
+    }
+    .auth-container, .main-container {
+        padding: 1.2rem;
+    }
+    h2 {
+        font-size: 1.5rem;
+    }
+    .theme-toggle {
+        top: 0.8rem;
+        right: 1rem;
+        font-size: 1.3rem;
+        padding: 0.4rem 0.7rem;
+    }
+}
